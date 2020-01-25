@@ -28,15 +28,18 @@ class GraphQLProvider {
     @PostConstruct
     @Suppress("UnstableApiUsage")
     fun init() {
-        // 1. schema.graphqls ファイルの読み込み
+        // schema.graphqls ファイルの読み込み
         val url = Resources.getResource("schema.graphqls")
         val sdl = Resources.toString(url, Charsets.UTF_8)
 
-        // 2. GraphQLSchema 及び GraphQL インスタンスの作成
+        // GraphQLSchema 及び GraphQL インスタンスの作成
         val graphQLSchema = buildSchema(sdl)
         this.graphQl = GraphQL.newGraphQL(graphQLSchema).build()
     }
 
+    /**
+     * GraphQLSchema インスタンスの作成
+     */
     fun buildSchema(sdl: String): GraphQLSchema {
         val typeRegistry = SchemaParser().parse(sdl)
         val runtimeWiring = buildWiring()
