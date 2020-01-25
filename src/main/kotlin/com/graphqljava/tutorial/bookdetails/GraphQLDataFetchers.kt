@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component
 @Component
 class GraphQLDataFetchers {
 
-
     private val books = listOf(
             mapOf("id" to "book-1",
                     "name" to "Harry Potter and the Philosopher's Stone",
@@ -48,6 +47,5 @@ class GraphQLDataFetchers {
             authors.stream().filter { it["id"] == authorId }.findFirst().orElse(null)
         }
     }
-
 
 }
