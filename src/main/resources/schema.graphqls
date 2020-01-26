@@ -1,5 +1,6 @@
 type Query {
     bookById(id: ID): Book
+    hero(episode: Episode): Character
 }
 
 type Book {
@@ -14,4 +15,15 @@ type Author {
     firstName: String
     lastName: String
     age: Int
+}
+
+type Character {
+    name: String!
+    appearsIn: [Episode!]!
+}
+
+enum Episode {
+    NEW_HOPE
+    EMPIRE
+    JEDI
 }

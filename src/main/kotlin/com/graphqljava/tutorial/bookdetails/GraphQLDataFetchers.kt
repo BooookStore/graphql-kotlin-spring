@@ -1,10 +1,13 @@
 package com.graphqljava.tutorial.bookdetails
 
 import graphql.schema.DataFetcher
+import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 
 @Component
 class GraphQLDataFetchers {
+
+    private val logger = LoggerFactory.getLogger(GraphQLDataFetchers::class.java)
 
     private val books = listOf(
             mapOf("id" to "book-1",
@@ -45,6 +48,15 @@ class GraphQLDataFetchers {
             val book = dataFetchingEnvironment.getSource<Map<String, String>>()
             val authorId = book["authorId"]
             authors.stream().filter { it["id"] == authorId }.findFirst().orElse(null)
+        }
+    }
+
+    data class Character(val name: String, val appearsIn: List<String>)
+
+    fun getHeroDataFetcher(): DataFetcher<Character> {
+        return DataFetcher { dataFetchingEnvironment ->
+            logger.info("argument is {}", dataFetchingEnvironment.getArgument("episode") as String)
+            Character("Anakin Skywalker", listOf("NEW_HOPE", "EMPIRE", "JEDI"))
         }
     }
 
