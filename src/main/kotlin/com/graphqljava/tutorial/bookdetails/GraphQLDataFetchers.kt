@@ -1,6 +1,7 @@
 package com.graphqljava.tutorial.bookdetails
 
 import graphql.schema.DataFetcher
+import graphql.schema.DataFetchingEnvironment
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 
@@ -51,7 +52,16 @@ class GraphQLDataFetchers {
         }
     }
 
-    data class Character(val name: String, val appearsIn: List<String>)
+    data class Character(val name: String, val appearsIn: List<String>) {
+
+        private val logger = LoggerFactory.getLogger(Character::class.java)
+
+        fun getAppearsIn(environment: DataFetchingEnvironment): List<String> {
+            logger.info("argument is {}", environment.getSource() as Character)
+            return appearsIn
+        }
+
+    }
 
     fun getHeroDataFetcher(): DataFetcher<Character> {
         return DataFetcher { dataFetchingEnvironment ->
