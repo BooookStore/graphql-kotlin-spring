@@ -52,10 +52,12 @@ class GraphQLDataFetchers {
         }
     }
 
+    // getterを用意することでレスポンスとして使用できる
     data class Character(val name: String, val appearsIn: List<String>) {
 
         private val logger = LoggerFactory.getLogger(Character::class.java)
 
+        // 引数にenvironmentを宣言することで、メソッド内でアクセスできる
         fun getAppearsIn(environment: DataFetchingEnvironment): List<String> {
             logger.info("argument is {}", environment.getSource() as Character)
             return appearsIn
@@ -65,6 +67,7 @@ class GraphQLDataFetchers {
 
     fun getHeroDataFetcher(): DataFetcher<Character> {
         return DataFetcher { dataFetchingEnvironment ->
+            // schemaで定義されているenum値は文字列として取得できる
             logger.info("argument is {}", dataFetchingEnvironment.getArgument("episode") as String)
             Character("Anakin Skywalker", listOf("NEW_HOPE", "EMPIRE", "JEDI"))
         }
