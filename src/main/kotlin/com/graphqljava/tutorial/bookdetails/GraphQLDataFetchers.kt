@@ -30,16 +30,16 @@ class GraphQLDataFetchers {
             mapOf("id" to "author-1",
                     "firstName" to "Joanne",
                     "lastName" to "Rowling",
-                    "birthDay" to LocalDate.of(1990, 1, 1).toString(),
+                    "birthDay" to LocalDate.of(1990, 1, 1),
                     "email" to EmailScalarType("sample@demo.co.jp")),
             mapOf("id" to "author-2",
                     "firsName" to "Herman",
                     "lastName" to "Melville",
-                    "birthDay" to LocalDate.of(1990, 2, 2).toString()),
+                    "birthDay" to LocalDate.of(1990, 2, 2)),
             mapOf("id" to "author-3",
                     "firstName" to "Anne",
                     "lastName" to "Rice",
-                    "birthDay" to LocalDate.of(1990, 3, 3).toString())
+                    "birthDay" to LocalDate.of(1990, 3, 3))
             )
 
     fun getBookByIdDataFetcher(): DataFetcher<Map<String, String>?> {
