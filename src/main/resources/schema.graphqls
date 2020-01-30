@@ -1,3 +1,6 @@
+scalar Date
+scalar Email
+
 type Query {
     bookById(id: ID): Book
     hero(episode: Episode): Character
@@ -15,6 +18,8 @@ type Author {
     firstName: String
     lastName: String
     age: Int
+    birthDay: Date
+    email: Email
 }
 
 type Character {

@@ -4,6 +4,7 @@ import graphql.schema.DataFetcher
 import graphql.schema.DataFetchingEnvironment
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
+import java.time.LocalDate
 
 @Component
 class GraphQLDataFetchers {
@@ -28,14 +29,18 @@ class GraphQLDataFetchers {
     private val authors = listOf(
             mapOf("id" to "author-1",
                     "firstName" to "Joanne",
-                    "lastName" to "Rowling"),
+                    "lastName" to "Rowling",
+                    "birthDay" to LocalDate.of(1990, 1, 1).toString(),
+                    "email" to "sample@demo.co.jp"),
             mapOf("id" to "author-2",
                     "firsName" to "Herman",
-                    "lastName" to "Melville"),
+                    "lastName" to "Melville",
+                    "birthDay" to LocalDate.of(1990, 2, 2).toString()),
             mapOf("id" to "author-3",
                     "firstName" to "Anne",
-                    "lastName" to "Rice")
-    )
+                    "lastName" to "Rice",
+                    "birthDay" to LocalDate.of(1990, 3, 3).toString())
+            )
 
     fun getBookByIdDataFetcher(): DataFetcher<Map<String, String>?> {
         return DataFetcher { dataFetchingEnvironment ->

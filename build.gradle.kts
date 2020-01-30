@@ -18,6 +18,7 @@ repositories {
 dependencies {
     implementation("com.graphql-java:graphql-java:11.0")
     implementation("com.graphql-java:graphql-java-spring-boot-starter-webmvc:1.0")
+    implementation("com.graphql-java:graphql-java-extended-scalars:1.0")
     implementation("com.google.guava:guava:26.0-jre")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
