@@ -31,7 +31,7 @@ class GraphQLDataFetchers {
                     "firstName" to "Joanne",
                     "lastName" to "Rowling",
                     "birthDay" to LocalDate.of(1990, 1, 1).toString(),
-                    "email" to "sample@demo.co.jp"),
+                    "email" to EmailScalarType("sample@demo.co.jp")),
             mapOf("id" to "author-2",
                     "firsName" to "Herman",
                     "lastName" to "Melville",
@@ -49,7 +49,7 @@ class GraphQLDataFetchers {
         }
     }
 
-    fun getAuthorDataFetcher(): DataFetcher<Map<String, String>?> {
+    fun getAuthorDataFetcher(): DataFetcher<Map<String, Any>?> {
         return DataFetcher { dataFetchingEnvironment ->
             val book = dataFetchingEnvironment.getSource<Map<String, String>>()
             val authorId = book["authorId"]
