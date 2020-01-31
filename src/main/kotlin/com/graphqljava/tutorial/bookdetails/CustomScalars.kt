@@ -18,6 +18,8 @@ val emailCoercing = object : Coercing<EmailScalarType, String> {
         return EmailScalarType(input.toString())
     }
 
+    // Client to Server で値を受け取るときに呼び出される
+    // 通常、queryの引数を変換するとき等
     override fun parseLiteral(input: Any): EmailScalarType {
         logger.info("parseLiteral {}", input.toString())
 
