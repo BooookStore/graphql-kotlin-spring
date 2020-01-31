@@ -11,19 +11,17 @@ class GraphQLDataFetchers {
 
     private val logger = LoggerFactory.getLogger(GraphQLDataFetchers::class.java)
 
+    data class Book(
+            val id: String,
+            val name: String,
+            val pageCount: Int,
+            val authorId: String
+    )
+
     private val books = listOf(
-            mapOf("id" to "book-1",
-                    "name" to "Harry Potter and the Philosopher's Stone",
-                    "pageCount" to "223",
-                    "authorId" to "author-1"),
-            mapOf("id" to "book-2",
-                    "name" to "Moby Dick",
-                    "pageCount" to "635",
-                    "authorId" to "author-3"),
-            mapOf("id" to "book-3",
-                    "name" to "Interview with the vampire",
-                    "pageCount" to "371",
-                    "authorId" to "author-3")
+            Book("book-1", "Harry Potter and the Philosopher's Stone", 223, "author-1"),
+            Book("book-2", "Moby Dick", 635, "author-2"),
+            Book("book-3", "Interview with the vampire", 371, "author-3")
     )
 
     private val authors = listOf(
@@ -40,20 +38,19 @@ class GraphQLDataFetchers {
                     "firstName" to "Anne",
                     "lastName" to "Rice",
                     "birthDay" to LocalDate.of(1990, 3, 3))
-            )
+    )
 
-    fun getBookByIdDataFetcher(): DataFetcher<Map<String, String>?> {
+    fun getBookByIdDataFetcher(): DataFetcher<Book?> {
         return DataFetcher { dataFetchingEnvironment ->
             val bookId = dataFetchingEnvironment.getArgument<String>("id")
-            books.stream().filter { it["id"] == bookId }.findFirst().orElse(null)
+            books.stream().filter { it.id == bookId }.findFirst().orElse(null)
         }
     }
 
     fun getAuthorDataFetcher(): DataFetcher<Map<String, Any>?> {
         return DataFetcher { dataFetchingEnvironment ->
-            val book = dataFetchingEnvironment.getSource<Map<String, String>>()
-            val authorId = book["authorId"]
-            authors.stream().filter { it["id"] == authorId }.findFirst().orElse(null)
+            val book = dataFetchingEnvironment.getSource<Book>()
+            authors.stream().filter { it["id"] == book.authorId }.findFirst().orElse(null)
         }
     }
 
