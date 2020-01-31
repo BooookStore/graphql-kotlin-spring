@@ -4,6 +4,7 @@ scalar Email
 type Query {
     bookById(id: ID): Book
     hero(episode: Episode): Character
+    authorByEmail(email: Email): Author
 }
 
 type Book {
