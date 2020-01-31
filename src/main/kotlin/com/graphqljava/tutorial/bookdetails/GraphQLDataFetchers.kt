@@ -24,20 +24,28 @@ class GraphQLDataFetchers {
             Book("book-3", "Interview with the vampire", 371, "author-3")
     )
 
+    data class Author(
+            val id: String,
+            val firstName: String,
+            val lastName: String,
+            val birthDay: LocalDate,
+            val email: EmailScalarType? = null
+    )
+
     private val authors = listOf(
-            mapOf("id" to "author-1",
-                    "firstName" to "Joanne",
-                    "lastName" to "Rowling",
-                    "birthDay" to LocalDate.of(1990, 1, 1),
-                    "email" to EmailScalarType("sample@demo.co.jp")),
-            mapOf("id" to "author-2",
-                    "firsName" to "Herman",
-                    "lastName" to "Melville",
-                    "birthDay" to LocalDate.of(1990, 2, 2)),
-            mapOf("id" to "author-3",
-                    "firstName" to "Anne",
-                    "lastName" to "Rice",
-                    "birthDay" to LocalDate.of(1990, 3, 3))
+            Author("author-1",
+                    "Joanne",
+                    "Rowling",
+                    LocalDate.of(1990, 1, 1),
+                    EmailScalarType("sample@demo.co.jp")),
+            Author("author-2",
+                    "Herman",
+                    "Melville",
+                    LocalDate.of(1990, 2, 2)),
+            Author("author-3",
+                    "Anne",
+                    "Rice",
+                    LocalDate.of(1990, 3, 3))
     )
 
     fun getBookByIdDataFetcher(): DataFetcher<Book?> {
@@ -47,10 +55,10 @@ class GraphQLDataFetchers {
         }
     }
 
-    fun getAuthorDataFetcher(): DataFetcher<Map<String, Any>?> {
+    fun getAuthorDataFetcher(): DataFetcher<Author?> {
         return DataFetcher { dataFetchingEnvironment ->
             val book = dataFetchingEnvironment.getSource<Book>()
-            authors.stream().filter { it["id"] == book.authorId }.findFirst().orElse(null)
+            authors.stream().filter { it.id == book.authorId }.findFirst().orElse(null)
         }
     }
 
