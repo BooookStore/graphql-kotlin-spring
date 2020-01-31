@@ -22,7 +22,7 @@ val emailCoercing = object : Coercing<EmailScalarType, String> {
 
     // Server to Client で値を渡すときに呼び出される
     override fun serialize(dataFetcherResult: Any): String {
-        logger.info("serialize [{}] type is [{}]", dataFetcherResult.toString())
+        logger.info("serialize {}", dataFetcherResult.toString())
 
         return when (dataFetcherResult) {
             is String -> dataFetcherResult
