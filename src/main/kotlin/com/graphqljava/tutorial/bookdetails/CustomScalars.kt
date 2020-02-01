@@ -3,6 +3,7 @@ package com.graphqljava.tutorial.bookdetails
 import graphql.language.StringValue
 import graphql.schema.Coercing
 import graphql.schema.CoercingParseLiteralException
+import graphql.schema.CoercingParseValueException
 import graphql.schema.GraphQLScalarType
 import org.slf4j.LoggerFactory
 
@@ -12,13 +13,21 @@ val emailCoercing = object : Coercing<EmailScalarType, String> {
 
     private val logger = LoggerFactory.getLogger("emailCoercing")
 
+    // Client to Server で値を受け取るときに呼び出される
+    // 変数を変換する
     override fun parseValue(input: Any): EmailScalarType {
         logger.info("parseValue {}", input.toString())
-        return EmailScalarType(input.toString())
+
+        when (input) {
+            // 入力された値はダウンキャストして使用する
+            is String -> return EmailScalarType(input)
+            // Coercing用の例外クラスを用いることで、適切なエラーレスポンスになる
+            else -> throw CoercingParseValueException("invalid email value")
+        }
     }
 
     // Client to Server で値を受け取るときに呼び出される
-    // 通常、queryの引数を変換するとき等
+    // queryの引数を変換する
     override fun parseLiteral(input: Any): EmailScalarType {
         logger.info("parseLiteral {}", input.toString())
 

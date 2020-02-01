@@ -65,6 +65,7 @@ class GraphQLDataFetchers {
     fun getAuthorByEmailDataFetcher(): DataFetcher<Author?> {
         return DataFetcher { environment ->
             val emailScalarType = environment.getArgument<EmailScalarType>("email")
+            logger.info("getAuthorByEmail {}", emailScalarType.toString())
             authors.stream().filter { it.email == emailScalarType }.findFirst().orElse(null)
         }
     }
