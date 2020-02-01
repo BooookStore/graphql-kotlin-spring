@@ -1,6 +1,5 @@
 package com.graphqljava.tutorial.bookdetails
 
-import graphql.GraphQLException
 import graphql.language.StringValue
 import graphql.schema.Coercing
 import graphql.schema.CoercingParseLiteralException
